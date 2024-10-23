@@ -23,7 +23,7 @@ app.get('/membership-discount', (req, res) => {
   let cartTotal = parseFloat(req.query.cartTotal);
   let isMember = req.query.isMember;
   if (isMember === 'true') {
-    cartTotal -= (cartTotal * 10) / 100;
+    cartTotal -= (cartTotal * discountPercentage) / 100;
   }
   let result = cartTotal;
   res.send(result.toString());
@@ -31,7 +31,7 @@ app.get('/membership-discount', (req, res) => {
 
 app.get('/calculate-tax', (req, res) => {
   let cartTotal = parseFloat(req.query.cartTotal);
-  let result = cartTotal / 20;
+  let result = (cartTotal * taxRate) / 100;
   res.send(result.toString());
 });
 
@@ -57,7 +57,7 @@ app.get('/shipping-cost', (req, res) => {
 
 app.get('/loyalty-points', (req, res) => {
   let purchaseAmount = parseFloat(req.query.purchaseAmount);
-  let result = purchaseAmount * 2;
+  let result = purchaseAmount * loyaltyRate;
   res.send(result.toString());
 });
 
